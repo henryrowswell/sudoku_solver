@@ -1,5 +1,5 @@
 import sudokupy2
-
+import os
 from flask import Flask
 from flask import render_template, request, make_response
 from flask_bootstrap import Bootstrap
@@ -77,4 +77,5 @@ def solve():
             return render_template("index.html",error="Oops! Something went wrong while solving puzzle.")
 
 if __name__ == "__main__":
-    app.run()
+    port = int(os.environ.get("PORT", 5000))
+    app.run(host='0.0.0.0', port=port)
