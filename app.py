@@ -39,8 +39,8 @@ def upload_file():
             input_img = b64encode(b)
             return render_template("index.html", input_image=input_img)
         except:
-            e = sys.exc_info()
-            return render_template("index.html",error="Error decoding image, check that it is a valid image file. " + str(e))
+            #e = sys.exc_info()
+            return render_template("index.html",error="Error decoding image, check that it is a valid image file. ")
 
       #####input_img = cv2.imdecode(np.fromstring(request.files['file'].read(), np.uint8), cv2.CV_LOAD_IMAGE_UNCHANGED)
       #pilImage = Image.open(StringIO(rawImage));
@@ -77,9 +77,9 @@ def solve():
             input_img = b64encode(b)
             return render_template("index.html", input_image=input_img, output_image=output_img)
         except:
-            e = sys.exc_info()
-            traceback.print_exc()
-            return render_template("index.html",error="Oops! Something went wrong while solving puzzle." + str(traceback.print_tb(e[2])))
+            # e = sys.exc_info()
+            # traceback.print_exc()
+            return render_template("index.html",error="Oops! Something went wrong while solving puzzle.")
 
 if __name__ == "__main__":
     port = int(os.environ.get("PORT", 5000))
