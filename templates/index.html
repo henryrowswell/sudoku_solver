@@ -1,0 +1,72 @@
+<!DOCTYPE html>
+<html>
+  <head>
+    <meta charset="utf-8">
+    <link href="//cdnjs.cloudflare.com/ajax/libs/twitter-bootstrap/3.3.7/css/bootstrap.min.css" rel="stylesheet">
+    <link rel="stylesheet" type="text/css" href="{{ url_for('static', filename='style.css') }}" />
+  </head>
+  <body>
+    <nav class="navbar navbar-default">
+      <div class="container-fluid">
+        <div class="navbar-header">
+          <a class="navbar-brand" href="#">
+            Henry's Sudoku Solver
+          </a>
+        </div>
+      </div>
+    </nav>
+
+    <div class="alert alert-success"><p><strong>Hi, welcome to Henry's Sudoku Solver! To get started, upload an image of a sudoku puzzle below, click "Upload", and then click "Solve"!</strong></p></div>
+    <p>
+      <strong>If the solution has "X" in it instead of numbers</strong>, that means it wasn't able to find a solution.
+      This could be because the problem you uploaded is impossible, but it is more likely because the program interpreted one or more numbers incorrectly.
+      The image on the left should have small blue numbers showing what the algorithm thinks each number is. The digit recognition system is still young and has not received much training
+      so it doesn't work perfectly with all fonts yet. Try a puzzle with a different font.
+    </p>
+    <p>
+      <strong>If it's not able to display a solution at all</strong>, that means it wasn't able to detect all 81 squares of the puzzle.
+      Try to use a picture as similar as possible to the examples below. At this stage, the puzzle must be a black and white grid with typed numbers.
+    </p>
+    <div class="well" style="display:inline-block;">
+      <p><small>Examples:</small></p>
+      <img src=" {{ url_for('static', filename="sudoku1.png")}}" style="height:100px;width:100px;display:inline-block"/>
+      <img src=" {{ url_for('static', filename="sudoku3.png")}}" style="height:100px;width:100px;display:inline-block"/>
+    </div>
+
+    {% if error %}
+      <div class="alert alert-danger" role="alert">{{ error }}</div>
+    {% endif %}
+
+    <div class="row">
+      <form action = "http://localhost:5000/upload" method = "POST" enctype = "multipart/form-data">
+        <input type = "file" name = "file" style="display:inline;"/>
+        <button type="submit" class="btn btn-primary" style="display:inline">Upload</button>
+      </form>
+    </div>
+
+    <div class="row">
+      {% if input_image %}
+        <img src="data:image/png;base64,{{ input_image }}" style="height:300px;width:300px;"/>
+      {% else %}
+        <div style="height:300px;width:300px;background-color:grey;border:5px solid black"></div>
+      {% endif %}
+
+      <form action = "http://localhost:5000/solve" method = "POST">
+        <button type="submit" class="btn btn-success" style="height:75px;width:225px;">Solve</button>
+      </form>
+
+      {% if output_image %}
+        <img src="data:image/png;base64,{{ output_image }}" style="height:300px;width:300px;"/>
+      {% else %}
+        <div style="height:300px;width:300px;background-color:grey;border:5px solid black"></div>
+      {% endif %}
+
+      <form action = "http://localhost:5000/" method = "GET">
+        <button type="submit" class="btn btn-success">Reset</button>
+      </form>
+    </div>
+
+
+
+  </body>
+</html>
