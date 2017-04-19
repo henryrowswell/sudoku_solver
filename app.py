@@ -30,7 +30,7 @@ def upload_file():
     global curr_image
     curr_image = None
     if request.method == 'POST':
-        # get img and decode for cv2 
+        # get img and decode for cv2  
         try:
             curr_image = cv2.imdecode(np.fromstring(request.files['file'].read(), np.uint8), -1)#cv2.CV_LOAD_IMAGE_UNCHANGED) #change to -1 for opencv 3
             # encode for cv2 to png
