@@ -1,5 +1,7 @@
 import sudokupy2
 import os
+import sys
+import traceback
 from flask import Flask
 from flask import render_template, request, make_response
 from flask_bootstrap import Bootstrap
@@ -30,14 +32,15 @@ def upload_file():
     if request.method == 'POST':
         # get img and decode for cv2
         try:
-            curr_image = cv2.imdecode(np.fromstring(request.files['file'].read(), np.uint8), cv2.CV_LOAD_IMAGE_UNCHANGED)
+            curr_image = cv2.imdecode(np.fromstring(request.files['file'].read(), np.uint8), -1)#cv2.CV_LOAD_IMAGE_UNCHANGED) #changed to -1 for opencv 3
             # encode for cv2 to png
             retval, b = cv2.imencode('.png', curr_image)
             # this allows it to be passed into html directly
             input_img = b64encode(b)
             return render_template("index.html", input_image=input_img)
         except:
-            return render_template("index.html",error="Error decoding image, check that it is a valid image file.")
+            e = sys.exc_info()
+            return render_template("index.html",error="Error decoding image, check that it is a valid image file. " + str(e))
 
       #####input_img = cv2.imdecode(np.fromstring(request.files['file'].read(), np.uint8), cv2.CV_LOAD_IMAGE_UNCHANGED)
       #pilImage = Image.open(StringIO(rawImage));
@@ -74,7 +77,9 @@ def solve():
             input_img = b64encode(b)
             return render_template("index.html", input_image=input_img, output_image=output_img)
         except:
-            return render_template("index.html",error="Oops! Something went wrong while solving puzzle.")
+            e = sys.exc_info()
+            traceback.print_exc()
+            return render_template("index.html",error="Oops! Something went wrong while solving puzzle." + str(traceback.print_tb(e[2])))
 
 if __name__ == "__main__":
     port = int(os.environ.get("PORT", 5000))

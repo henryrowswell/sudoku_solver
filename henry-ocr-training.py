@@ -27,7 +27,7 @@ for root, dirs, filenames in os.walk(indir):
 
         #################      Now finding Contours         ###################
 
-        contours,hierarchy = cv2.findContours(thresh,cv2.RETR_EXTERNAL,cv2.CHAIN_APPROX_SIMPLE) #used to be RETR_LIST (what is that?)
+        image,contours,hierarchy = cv2.findContours(thresh,cv2.RETR_EXTERNAL,cv2.CHAIN_APPROX_SIMPLE) #used to be RETR_LIST (what is that?)
         cv2.drawContours(im, contours, -1, (0,255,0), 1)
         #cv2.imshow('hello2',thresh)
         #cv2.waitKey(0)

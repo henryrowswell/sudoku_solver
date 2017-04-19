@@ -42,7 +42,7 @@ def run(input_img):
     #peek("4",thresh)
 
     # find contour lines - after this somehow the thresh img is changed, which is why we have thresh2
-    contours, hierarchy = cv2.findContours(thresh, cv2.RETR_TREE, cv2.CHAIN_APPROX_SIMPLE)
+    image, contours, hierarchy = cv2.findContours(thresh, cv2.RETR_TREE, cv2.CHAIN_APPROX_SIMPLE)
     #cv2.drawContours(img, contours, -1, (0,255,0), 1)
     #peek("3",img)
 
@@ -145,4 +145,4 @@ def run(input_img):
 
     return img2, img
 
-#run(cv2.imread('puzzles/sudoku3.png'))
+#run(cv2.imread('static/sudoku3.png'))

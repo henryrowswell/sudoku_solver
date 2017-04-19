@@ -8,7 +8,8 @@ responses = np.loadtxt('generalresponses.data',np.float32)
 responses = responses.reshape((responses.size,1))
 
 model = cv2.ml.KNearest_create()
-model.train(samples,responses)
+#model = cv2.KNearest()
+model.train(samples,cv2.ml.ROW_SAMPLE,responses)
 
 def get_number_from_img(im, draw=False):
     #im = cv2.imread(im)
@@ -20,7 +21,7 @@ def get_number_from_img(im, draw=False):
     thresh2 = np.copy(im)
     # cv2.imshow('OCR',thresh2)
     # cv2.waitKey(0)
-    contours,hierarchy = cv2.findContours(thresh,cv2.RETR_LIST,cv2.CHAIN_APPROX_SIMPLE)
+    image, contours,hierarchy = cv2.findContours(thresh,cv2.RETR_LIST,cv2.CHAIN_APPROX_SIMPLE)
 
     #get biggest contour (the number)
     biggest = None
@@ -46,7 +47,7 @@ def get_number_from_img(im, draw=False):
         roismall = cv2.resize(roi,(10,10))
         roismall = roismall.reshape((1,100))
         roismall = np.float32(roismall)
-        retval, results, neigh_resp, dists = model.find_nearest(roismall, k = 1)
+        retval, results, neigh_resp, dists = model.findNearest(roismall, k = 1)
         string = str(int((results[0][0])))
         #cv2.putText(out,string,(x,y+h),0,1,(0,255,0))
         output += string
