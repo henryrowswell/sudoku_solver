@@ -77,9 +77,9 @@ def solve():
             input_img = b64encode(b)
             return render_template("index.html", input_image=input_img, output_image=output_img)
         except:
-            # e = sys.exc_info()
+            e = sys.exc_info()
             # traceback.print_exc()
-            return render_template("index.html",error="Oops! Something went wrong while solving puzzle.")
+            return render_template("index.html",error="Oops! Something went wrong while solving puzzle." + str(e))
 
 if __name__ == "__main__":
     port = int(os.environ.get("PORT", 5000))
