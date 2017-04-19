@@ -32,7 +32,7 @@ def upload_file():
     if request.method == 'POST':
         # get img and decode for cv2
         try:
-            curr_image = cv2.imdecode(np.fromstring(request.files['file'].read(), np.uint8), cv2.CV_LOAD_IMAGE_UNCHANGED) #change to -1 for opencv 3
+            curr_image = cv2.imdecode(np.fromstring(request.files['file'].read(), np.uint8), -1)#cv2.CV_LOAD_IMAGE_UNCHANGED) #change to -1 for opencv 3
             # encode for cv2 to png
             retval, b = cv2.imencode('.png', curr_image)
             # this allows it to be passed into html directly
