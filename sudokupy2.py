@@ -11,12 +11,12 @@ import math
 import operator
 import sys
 
-def peek(window, img):
-    cv2.imshow(window,img)
-
-def waitToDestroy():
-    cv2.waitKey(0)
-    cv2.destroyAllWindows()
+# def peek(window, img):
+#     cv2.imshow(window,img)
+#
+# def waitToDestroy():
+#     cv2.waitKey(0)
+#     cv2.destroyAllWindows()
 
 def run(input_img):
     # open the image
@@ -105,7 +105,7 @@ def run(input_img):
 
         contour_values.append((x,y,w,h,num)) #this is just used for writing solution to img
 
-    peek("4", img)
+    #peek("4", img)
 
     print('\n'.join([''.join(['{:4}'.format(item) for item in row]) for row in puzzle]))
 
