@@ -7,7 +7,7 @@ samples = np.loadtxt('generalsamples.data',np.float32)
 responses = np.loadtxt('generalresponses.data',np.float32)
 responses = responses.reshape((responses.size,1))
 
-model = cv2.KNearest()
+model = cv2.ml.KNearest_create()
 model.train(samples,responses)
 
 def get_number_from_img(im, draw=False):
