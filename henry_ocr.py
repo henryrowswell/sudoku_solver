@@ -47,7 +47,7 @@ def get_number_from_img(im, draw=False):
         roismall = cv2.resize(roi,(10,10))
         roismall = roismall.reshape((1,100))
         roismall = np.float32(roismall)
-        retval, results, neigh_resp, dists = model.findNearest(roismall, k = 1)
+        retval, results, neigh_resp, dists = model.find_nearest(roismall, k = 1) #model.findNearest(roismall, k = 1) #opencv 3
         string = str(int((results[0][0])))
         #cv2.putText(out,string,(x,y+h),0,1,(0,255,0))
         output += string
